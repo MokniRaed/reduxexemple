@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import "./App.css";
+import { changeLastName, changeName } from "./Redux/userSlice";
 
+import Contacts from "./Contacts";
 function App() {
+
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const handleclick = () => {
+    dispatch(changeName("MAHA"));
+  };
+  const handlechangeLatName = () => {
+    dispatch(changeLastName("XXXX"));
+  };
+ 
+ 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
+        <button onClick={() => handleclick()}>Change Name </button>
+        <button onClick={() => handlechangeLatName()}>Change lastName </button>
+        <input
+          placeholder="set our Name"
+          onChange={(e) => dispatch(changeName(e.target.value))}
+        />
+        {user.name}
+        {user.lastName}
+        <Contacts/>
+      
     </div>
   );
 }
